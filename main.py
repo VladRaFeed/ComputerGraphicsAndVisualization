@@ -58,14 +58,18 @@ def show_resize():
             if img_path:
                 img = Image.open(img_path)
                 width, height = img.size
-                if(entered_height == 0):
+                if(entered_height or entered_width == 0):
+                    if(entered_height == 0):
+                        a = width / height
+                        new_height = entered_width / a
+                        new_width = a * new_height
+                    else: 
+                        a = width / height
+                        new_width = entered_height * a
+                        new_height = new_width / a
                     a = width / height
                     new_height = entered_width / a
                     new_width = a * new_height
-                else: 
-                    a = width / height
-                    new_width = entered_height * a
-                    new_height = new_width / a
                 resized_img = img.resize((int(new_width), int(new_height)))
                 resized_img.save("resized_img.jpg")
                 resized_img.show()
