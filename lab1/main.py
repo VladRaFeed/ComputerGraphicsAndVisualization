@@ -231,3 +231,5 @@ btn_changecolorsacle.pack(pady=10)
 
 root.geometry("600x600")
 root.mainloop()
+
+#139, 194, 74
