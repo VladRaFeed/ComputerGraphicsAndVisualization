@@ -6,24 +6,23 @@ def show_change_alpha_pixel_to_setted():
     clear_frame()
 
     def changecolors():
-        entered_alpha = input_a.get()  # Використовуйте введене значення прямо
+        entered_alpha = input_a.get()  
         
         img_path = load_image()
         if img_path:
-            img = Image.open(img_path).convert("RGBA")  # Конвертуємо в RGBA
+            img = Image.open(img_path).convert("RGBA")  
             width, height = img.size
             pixels = img.load()
             for i in range(width):
                 for j in range(height):
-                    r, g, b, a = pixels[i, j]  # Отримуємо значення кольору та альфа
-                    a = int(a * entered_alpha)  # Змінюємо альфа-канал
-                    # a = max(0, min(255, a))  # Переконайтеся, що значення альфа в діапазоні 0-255
-                    pixels[i, j] = (r, g, b, a)  # Зберігаємо нові значення пікселя
-            img.save("repainted_image.png")  # Зберігаємо в PNG для збереження альфа-каналу
+                    r, g, b, a = pixels[i, j]  
+                    a = int(a * entered_alpha)  
+                    pixels[i, j] = (r, g, b, a)  
+            img.save("repainted_image.png")  
         else:
             messagebox.showerror("Помилка!", "Не вдається відкрити зображення")
 
-    input_a = tk.DoubleVar()  # Використовуйте DoubleVar для значень з плаваючою крапкою
+    input_a = tk.DoubleVar()  
 
     label = tk.Label(frame, text="Введіть альфу, для зміни прозорості (0.1-0.9):")
     label.pack(pady=10)
@@ -37,7 +36,7 @@ def show_change_alpha_pixel_to_setted():
 def show_split_image_on_parts():
     clear_frame()
 
-    def process_image(fill_color=(255, 255, 255)):
+    def process_image(fill_color=(0, 0, 0)):
 
         action = clicked.get()
         rows = input_rows.get()
@@ -47,23 +46,10 @@ def show_split_image_on_parts():
         y1 = input_y1.get()
         y2 = input_y2.get()
 
-        # """
-        # Обробка зображення за вказаною дією.
-
-        # Параметри:
-        # - image_path: шлях до зображення.
-        # - action: 'split', 'extract' або 'mask_outside'.
-        # - rows: кількість рядків (для 'split').
-        # - cols: кількість колонок (для 'split').
-        # - x1, y1, x2, y2: координати області (для 'extract' і 'mask_outside').
-        # - fill_color: колір заповнення (для 'mask_outside').
-        # """
-
         img_path = load_image()
         image = Image.open(img_path)
 
         if action == 'split':
-            # Розбивка зображення на задану кількість рядків і колонок
             img_width, img_height = image.size
             part_width = img_width // columns
             part_height = img_height // rows
@@ -78,36 +64,30 @@ def show_split_image_on_parts():
                     parts.append(part)
             
             for i in range(len(parts)):
-                parts[i].show()  # Відображує список частин зображення
+                parts[i].show()  
     
         elif action == 'extract':
-            # Вибір і вилучення області зображення
             selected_region = image.crop((x1, y1, x2, y2))
-            selected_region.show()  # Відображує вибрану область
+            selected_region.show() 
     
         elif action == 'mask_outside':
-            # Вилучення всіх частин за межами вибраної області
             mask = Image.new('RGB', image.size, fill_color)
             mask.paste(image.crop((x1, y1, x2, y2)), (x1, y1))
-            mask.show()  # Відображує зображення з маскою
+            mask.show()
     
         else:
             messagebox.showerror("Некоректна дія. Використовуйте 'split', 'extract' або 'mask_outside'.")
-
-    # Dropdown menu options 
+ 
     options = [ 
         "split", 
         "extract", 
         "mask_outside"
     ] 
   
-    # datatype of menu text 
     clicked = tk.StringVar() 
   
-    # initial menu text 
     clicked.set( "split" ) 
     
-    # Create Dropdown menu 
     drop = tk.OptionMenu(frame , clicked , *options ) 
     drop.pack(pady=10) 
 
