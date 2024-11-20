@@ -29,6 +29,7 @@ def merge_images():
         raise ValueError("Напрямок має бути 'horizontal' або 'vertical'.")
     
     merged_image.show()
+    merged_image.save("merge_image.jpeg")
 
 def load_image():
     file_path = filedialog.askopenfilename(

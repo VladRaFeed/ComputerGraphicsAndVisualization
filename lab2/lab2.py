@@ -68,11 +68,17 @@ def show_split_image_on_parts():
     
         elif action == 'extract':
             selected_region = image.crop((x1, y1, x2, y2))
+            selected_region.save("selected_region.png")
             selected_region.show() 
     
         elif action == 'mask_outside':
-            mask = Image.new('RGB', image.size, fill_color)
-            mask.paste(image.crop((x1, y1, x2, y2)), (x1, y1))
+
+            mask = image.copy()
+            
+            for x in range(x1, x2):
+                for y in range(y1, y2):
+                    mask.putpixel((x, y), fill_color)  # Чорний колір
+
             mask.show()
     
         else:
