@@ -38,8 +38,8 @@ def task3():
         channel_data = np.array(image)[:, :, i].flatten()
         plt.hist(channel_data, bins=256, alpha=0.5, color=color, label=f"{color.upper()} Channel")
     plt.title("Гістограма яскравості кольорового зображення")
-    plt.xlabel("Pixel Value")
-    plt.ylabel("Frequency")
+    plt.xlabel("Пікселі")
+    plt.ylabel("Частота кольору")
     plt.legend()
     plt.show()
 
@@ -83,4 +83,4 @@ def task7():
 # task4()
 # task5()
 # task6()
-# task7()
+task7()
